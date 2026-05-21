@@ -58,42 +58,67 @@ export default function AdminDashboard({ session }) {
     return true
   })
 
+  const total = feedback.length
+  const pending = feedback.filter((f) => !f.is_reviewed).length
+  const reviewed = feedback.filter((f) => f.is_reviewed).length
+
   return (
-    <div className="container">
-      <div className="header-row">
-        <h2>Admin Dashboard</h2>
+    <div style={{ maxWidth: 900, margin: '0 auto', padding: 24 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, background: '#fff', padding: '16px 24px', borderRadius: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
         <div>
-          <button type="button" className="btn" onClick={() => supabase.auth.signOut()}>
-            Sign Out
-          </button>
+          <h1 style={{ fontSize: 22, color: '#1a1a2e', margin: 0 }}>Admin Dashboard</h1>
+        </div>
+
+        <div style={{ textAlign: 'right' }}>
+          <p style={{ color: '#6b7280', fontSize: 13, margin: 0 }}>{session?.user?.email}</p>
+          <div style={{ marginTop: 8 }}>
+            <button type="button" className="btn-danger" style={{ padding: '8px 16px' }} onClick={() => supabase.auth.signOut()}>
+              Sign Out
+            </button>
+          </div>
         </div>
       </div>
 
-      <p className="meta">Signed in as: {session?.user?.email}</p>
+      <div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
+        <div className="card" style={{ padding: 16, textAlign: 'center', flex: 1 }}>
+          <div style={{ fontSize: 28, fontWeight: 700, color: '#6c63ff' }}>{total}</div>
+          <div style={{ fontSize: 12, color: '#6b7280' }}>Total</div>
+        </div>
 
-      <div className="filters">
-        <label>
-          Category:{' '}
-          <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
-            {categories.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-        </label>
+        <div className="card" style={{ padding: 16, textAlign: 'center', flex: 1 }}>
+          <div style={{ fontSize: 28, fontWeight: 700, color: '#6c63ff' }}>{pending}</div>
+          <div style={{ fontSize: 12, color: '#6b7280' }}>Pending</div>
+        </div>
 
-        <label>
-          Status:{' '}
-          <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
-            <option value="All">All</option>
-            <option value="Reviewed">Reviewed</option>
-            <option value="Pending">Pending</option>
-          </select>
-        </label>
+        <div className="card" style={{ padding: 16, textAlign: 'center', flex: 1 }}>
+          <div style={{ fontSize: 28, fontWeight: 700, color: '#6c63ff' }}>{reviewed}</div>
+          <div style={{ fontSize: 12, color: '#6b7280' }}>Reviewed</div>
+        </div>
       </div>
 
-      <p className="meta">Showing {filtered.length} item{filtered.length !== 1 ? 's' : ''}</p>
+      <div className="card" style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 20, padding: 16 }}>
+        <div style={{ fontWeight: 600, color: '#374151' }}>Filter by:</div>
+
+        <select className="input" style={{ maxWidth: 180 }} value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
+          {categories.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
+
+        <select className="input" style={{ maxWidth: 180 }} value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+          <option value="All">All</option>
+          <option value="Reviewed">Reviewed</option>
+          <option value="Pending">Pending</option>
+        </select>
+
+        <div style={{ marginLeft: 'auto' }}>
+          <div style={{ background: '#ede9fe', color: '#6c63ff', padding: '4px 12px', borderRadius: 20, fontSize: 13, fontWeight: 600 }}>
+            {filtered.length} shown
+          </div>
+        </div>
+      </div>
 
       <div className="feedback-list">
         {filtered.map((item) => (
