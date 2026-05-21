@@ -59,24 +59,19 @@ export default function AdminDashboard({ session }) {
   })
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div className="container">
+      <div className="header-row">
         <h2>Admin Dashboard</h2>
         <div>
-          <button
-            type="button"
-            onClick={() => {
-              supabase.auth.signOut()
-            }}
-          >
+          <button type="button" className="btn" onClick={() => supabase.auth.signOut()}>
             Sign Out
           </button>
         </div>
       </div>
 
-      <p>Signed in as: {session?.user?.email}</p>
+      <p className="meta">Signed in as: {session?.user?.email}</p>
 
-      <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+      <div className="filters">
         <label>
           Category:{' '}
           <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
@@ -98,9 +93,9 @@ export default function AdminDashboard({ session }) {
         </label>
       </div>
 
-      <p>Showing {filtered.length} item{filtered.length !== 1 ? 's' : ''}</p>
+      <p className="meta">Showing {filtered.length} item{filtered.length !== 1 ? 's' : ''}</p>
 
-      <div>
+      <div className="feedback-list">
         {filtered.map((item) => (
           <FeedbackItem key={item.id} item={item} onUpdate={handleUpdate} onDelete={handleDelete} />
         ))}

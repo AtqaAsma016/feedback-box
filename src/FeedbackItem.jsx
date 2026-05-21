@@ -30,7 +30,7 @@ export default function FeedbackItem({ item, onUpdate, onDelete }) {
   }
 
   return (
-    <div style={{ border: '1px solid #ccc', padding: '12px', marginBottom: '8px' }}>
+    <div className="card feedback-item">
       <div>
         <strong>Category:</strong> {item.category}
       </div>
@@ -40,26 +40,22 @@ export default function FeedbackItem({ item, onUpdate, onDelete }) {
         <div>{item.message}</div>
       </div>
 
-      <div>
+      <div className="meta">
         <strong>Submitted:</strong>{' '}
         {item.created_at ? new Date(item.created_at).toLocaleString() : 'Unknown'}
       </div>
 
-      <div>
+      <div className="meta">
         <strong>Status:</strong>{' '}
         {item.is_reviewed ? '✅ Reviewed' : '🕐 Pending'}
       </div>
 
       <div style={{ marginTop: '8px' }}>
-        <button type="button" onClick={toggleReviewed}>
+        <button type="button" onClick={toggleReviewed} className="btn">
           {item.is_reviewed ? 'Mark as Pending' : 'Mark as Reviewed'}
         </button>
 
-        <button
-          type="button"
-          onClick={handleDelete}
-          style={{ color: 'red', marginLeft: '8px' }}
-        >
+        <button type="button" onClick={handleDelete} className="btn btn-danger" style={{ marginLeft: 8 }}>
           Delete
         </button>
       </div>

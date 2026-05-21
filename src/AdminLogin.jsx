@@ -18,28 +18,30 @@ export default function AdminLogin() {
   }
 
   return (
-    <form onSubmit={handleLogin}>
-      <h3>Admin Login</h3>
+    <div className="card admin-login">
+      <form onSubmit={handleLogin}>
+        <h3>Admin Login</h3>
 
-      <input
-        type="email"
-        placeholder="Email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <input
+          type="email"
+          placeholder="Email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-      <input
-        type="password"
-        placeholder="Password"
-        required
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <input
+          type="password"
+          placeholder="Password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <button type="submit">Sign In</button>
+        <button type="submit" className="btn btn-primary">Sign In</button>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-    </form>
+        {error && <p className="error">{error}</p>}
+      </form>
+    </div>
   )
 }

@@ -28,9 +28,9 @@ export default function FeedbackForm() {
 
   if (submitted) {
     return (
-      <div>
+      <div className="card">
         <p>✅ Feedback submitted anonymously. Thank you!</p>
-        <button type="button" onClick={() => setSubmitted(false)}>
+        <button type="button" className="btn" onClick={() => setSubmitted(false)}>
           Submit another
         </button>
       </div>
@@ -38,34 +38,36 @@ export default function FeedbackForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Anonymous Feedback</h2>
+    <div className="card feedback-form">
+      <form onSubmit={handleSubmit}>
+        <h2>Anonymous Feedback</h2>
 
-      <label>
-        Category
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          {CATEGORIES.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
-      </label>
+        <label>
+          Category
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+            {CATEGORIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        </label>
 
-      <label>
-        Message
-        <textarea
-          placeholder="Write your feedback here..."
-          required
-          rows={4}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-      </label>
+        <label>
+          Message
+          <textarea
+            placeholder="Write your feedback here..."
+            required
+            rows={4}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+        </label>
 
-      <button type="submit" disabled={loading}>
-        {loading ? 'Submitting...' : 'Submit Feedback'}
-      </button>
-    </form>
+        <button type="submit" disabled={loading} className="btn btn-primary">
+          {loading ? 'Submitting...' : 'Submit Feedback'}
+        </button>
+      </form>
+    </div>
   )
 }
